@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Text string manager</title>
+  <link rel="stylesheet" href="./../index.css"/>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>This is a technical proof</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan diam turpis, sit amet consequat nisl egestas et.</p>
+    </header>
+
+    <ul id="textList" class="item-list" role="listbox"></ul>
+
+    <div class="controls">
+      <button id="undoBtn" class="button-outline" title="Undo">
+        ↶
+      </button>
+      <button id="deleteBtn" class="button-outline">DELETE</button>
+      <button id="openModalBtn" class="button-primary" role="add">ADD</button>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <label id="itemInputLabel" for="modalInput">Add item to list</label>
+      <input type="text" id="modalInput" placeholder="Type the text here..." />
+      <div class="modal-buttons">
+        <button id="modalAddBtn" class="button-primary">ADD</button>
+        <button id="modalCancelBtn" class="button-outline">CANCEL</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
