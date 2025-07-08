@@ -76,6 +76,7 @@ button {
   margin-right: 8px;
 }
 
+/*TODO ARREGLAR ESTO**/
 button[role="add"] {
   margin-left: auto;
 }

@@ -76,7 +76,7 @@ button {
   margin-right: 8px;
 }
 
-button[role="add"] {
+button[datatype="openModal"], .open-modal-btn {
   margin-left: auto;
 }
 
@@ -100,7 +100,7 @@ button[role="add"] {
   background-color:  rgb(245, 245, 245);
 }
 
-.modal-overlay {
+dialog {
   position: fixed;
   top: 0; 
   left: 0;
@@ -110,6 +110,8 @@ button[role="add"] {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
+  border: 0;
 }
 
 .modal-content {
@@ -121,6 +123,11 @@ button[role="add"] {
   box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
   width: 90%;
   max-width: 400px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }
 
 #itemInputLabel {

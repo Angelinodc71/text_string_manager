@@ -13,29 +13,26 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan diam turpis, sit amet consequat nisl egestas et.</p>
     </header>
 
-    <ul id="textList" class="item-list" role="listbox"></ul>
+    <ul class="item-list" role="listbox"></ul>
 
     <div class="controls">
-      <button id="undoBtn" class="button-outline" title="Undo">
-        ↶
-      </button>
-      <button id="deleteBtn" class="button-outline">DELETE</button>
-      <button id="openModalBtn" class="button-primary" role="add">ADD</button>
+      <button class="button-outline undo-btn" title="Undo">↶</button>
+      <button class="button-outline delete-btn">DELETE</button>
+      <button class="button-primary open-modal-btn" role="add">ADD</button>
     </div>
   </main>
 
-  <!-- Modal -->
-  <div id="modal" class="modal-overlay" style="display: none;">
+  <dialog class="modal-overlay" style="display: none;">
     <div class="modal-content">
       <label id="itemInputLabel" for="modalInput">Add item to list</label>
-      <input type="text" id="modalInput" placeholder="Type the text here..." />
+      <input type="text" class="modal-input" placeholder="Type the text here..." />
       <div class="modal-buttons">
-        <button id="modalAddBtn" class="button-primary">ADD</button>
-        <button id="modalCancelBtn" class="button-outline">CANCEL</button>
+        <button class="button-primary modal-add-btn">ADD</button>
+        <button class="button-outline modal-cancel-btn">CANCEL</button>
       </div>
     </div>
-  </div>
+  </dialog>
 
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>

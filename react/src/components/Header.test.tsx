@@ -9,7 +9,7 @@ describe('Header component', () => {
 
     const heading = screen.getByRole('heading', { level: 1 });
     expect(heading).not.toBeNull();
-    expect(heading.textContent).toBe('This is a technical proof');
+    expect(heading.textContent).toEqual('This is a technical proof');
 
     const paragraph = screen.getByText(/Lorem ipsum/);
     expect(paragraph).not.toBeNull();

@@ -28,6 +28,7 @@ describe('ItemList minimal tests', () => {
     const selected = new Set([1]);
     render(<ItemList items={items} selected={selected} onSelect={() => {}} onDoubleClickDelete={() => {}} />);
     const item = screen.getByText('Item 2');
-    expect(item.className).toBe('selected');
+    
+    expect(item.className).toEqual('selected');
   });
 });

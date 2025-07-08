@@ -10,20 +10,20 @@ describe('Home component', () => {
     expect(screen.getByText('Item 1')).not.toBeNull();
     expect(screen.getByText('Item 4')).not.toBeNull();
 
-    await userEvent.click(screen.getByRole('add'));
+    await userEvent.click(screen.getByRole('button', { name: 'ADD' }));
     const input = screen.getByPlaceholderText('Type the text here...');
-    await userEvent.type(input, 'Nuevo ítem');
+    await userEvent.type(input, 'New item');
     const addButtons = screen.getAllByText('ADD');
     const lastAddButton = addButtons[addButtons.length - 1];
     await userEvent.click(lastAddButton);
 
-    expect(screen.getByText('Nuevo ítem')).not.toBeNull();
+    expect(screen.getByText('New item')).not.toBeNull();
   });
 
-  it('shows initial items and try to add a new one in modal', async () => {
+  it('does not add an item when input is empty or whitespace', async () => {
     render(<Home />);
 
-    await userEvent.click(screen.getByRole('add'));
+    await userEvent.click(screen.getByRole('button', { name: 'ADD' }));
     const input = screen.getByPlaceholderText('Type the text here...');
     await userEvent.type(input, '   ');
     const addButtons = screen.getAllByText('ADD');
@@ -44,7 +44,7 @@ describe('Home component', () => {
     expect(screen.queryByText('Item 2')).toBeNull();
   });
 
-  it('selects all items, deletes all, then tries to delete again without selection', async () => {
+  it('deletes all selected items and handles deletion with no selection', async () => {
     render(<Home />);
   
     const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
@@ -99,7 +99,7 @@ describe('Home component', () => {
     expect(screen.queryByText('Item 2')).toBeNull();
   });
 
-  it('resets the list when clicking the reload button', async () => {
+  it('resets the list after an item was removed', async () => {
     render(<Home />);
     const item3 = screen.getByText('Item 3');
     await userEvent.dblClick(item3);
@@ -110,24 +110,19 @@ describe('Home component', () => {
     expect(screen.getByText('Item 3')).toBeDefined();
   });
 
-  it('lets the user type text and calls onAdd with it', async () => {
+  it('closes the modal when clicking outside of it', async () => {
     render(<Home />);
-    const addButtons = screen.getByRole('add');
-    await userEvent.click(addButtons);
+    await userEvent.click(screen.getByRole('button', { name: 'ADD' }));
 
-    const input = screen.getByPlaceholderText('Type the text here...');
-    await userEvent.type(input, 'New Item');
+    const dialog = document.querySelector('dialog')!;
+    await userEvent.click(dialog);
 
-    const addButtons2 = screen.getAllByText('ADD');
-    const lastAddButton2 = addButtons2[addButtons2.length - 1];
-    await userEvent.click(lastAddButton2);
-
-    expect(screen.getByText('New Item')).toBeDefined();
+    expect(screen.queryByPlaceholderText('Type the text here...')).not.toBeInTheDocument();
   });
 
-  it('lets the user type text and calls onAdd with it', async () => {
+  it('lets the user type text and cancels without adding', async () => {
     render(<Home />);
-    const addButton = screen.getByRole('add');
+    const addButton = screen.getByRole('button', { name: 'ADD' });
     await userEvent.click(addButton);
   
     const input = screen.getByPlaceholderText('Type the text here...');
@@ -136,18 +131,6 @@ describe('Home component', () => {
     const cancelButton = screen.getByText('CANCEL');
     await userEvent.click(cancelButton);
   
-    expect(screen.queryByText('New Item')).toBeNull();
-  });
-
-  it('lets the user click outside the modal', async () => {
-    render(<Home />);
-    const addButton = screen.getByRole('add');
-    await userEvent.click(addButton);
-  
-    expect(screen.getByPlaceholderText('Type the text here...'));
-  
-    await userEvent.click(screen.getByRole('main'));
-  
-    expect(screen.queryByPlaceholderText('Type the text here...')).toBeNull();
+    expect(screen.queryByText('New Item')).not.toBeInTheDocument();
   });
 });

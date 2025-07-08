@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import Button from './Button';
 
 const AddItemForm: React.FC<{ onAdd: (item: string) => void; onCancel: () => void }> = ({ onAdd, onCancel }) => {
-  const [text, setText] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const value = inputRef.current?.value;
+    if (value) onAdd(value);
+  };
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <label id="itemInputLabel" htmlFor="itemInput">Add item to list</label>
-      <input id="itemInput" type="text" value={text} onChange={e => setText(e.target.value)} placeholder="Type the text here..." />
+      <input
+        id="itemInput"
+        type="text"
+        ref={inputRef}
+        placeholder="Type the text here..."
+      />
       <div className="modal-buttons">
-        <Button type='primary' onClick={() => onAdd(text)}>ADD</Button>
-        <Button type='outline' onClick={onCancel}>CANCEL</Button>
+        <Button type='submit' variant='primary'>ADD</Button>
+        <Button type='reset' variant='outline' onClick={onCancel}>CANCEL</Button>
       </div>
-    </>
+    </form>
   );
 };
 

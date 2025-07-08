@@ -6,9 +6,10 @@ import AddItemForm from '../components/AddItemForm';
 import Button from '../components/Button';
 import ReloadIcon from './../assets/refresh.svg?react';
 import UndoIcon from './../assets/undo.svg?react';
+  
+const initialItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
 
 const Home: React.FC = () => {
-  const initialItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
   const [items, setItems] = useState<string[]>(initialItems);
   const [selected, setSelected] = useState<Set<number>>(new Set());
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,7 +33,6 @@ const Home: React.FC = () => {
     if (history.length === 0) return;
     const prev = history.pop()!;
     setItems(prev);
-    setHistory([...history]);
   };
 
   const toggleSelect = (i: number) => {
@@ -68,17 +68,17 @@ const Home: React.FC = () => {
       <div className="controls">
         <Button 
           icon={<ReloadIcon />}
-          type="outline"
+          variant="outline"
           onClick={handleReset}
         />
-        <Button label="DELETE" type="outline" onClick={deleteItems} />
+        <Button label="DELETE" variant="outline" onClick={deleteItems} />
         <Button 
           icon={<UndoIcon />}
           label='UNDO'
-          type="outline"
+          variant="outline"
           onClick={undo}
         />
-        <Button role="add" label="ADD" type="primary" onClick={() => setIsModalOpen(true)} />
+        <Button datatype="openModal" label="ADD" variant="primary" onClick={() => setIsModalOpen(true)} />
       </div>
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>

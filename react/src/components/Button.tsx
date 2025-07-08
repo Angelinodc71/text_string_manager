@@ -1,19 +1,21 @@
-import React, { type AriaRole } from 'react';
+import React from 'react';
 
 type Props = {
   label?: string;
-  onClick: () => void;
-  type: 'primary' | 'outline';
-  role?: AriaRole | string;
+  onClick?: () => void;
+  variant: 'primary' | 'outline';
   icon?: React.ReactNode;
   children?: React.ReactNode;
+  datatype?: string;
+  type?: "button" | "submit" | "reset";
 };
 
-const Button: React.FC<Props> = ({ label, onClick, type, role, icon, children }) => {
+const Button: React.FC<Props> = ({ label, onClick, type, icon, children, datatype, variant }) => {
   return (
     <button
-      role={role ?? "button"}
-      className={type === 'primary' ? 'button-primary' : 'button-outline'}
+      type={type ?? 'button'}
+      datatype={datatype}
+      className={variant === 'primary' ? 'button-primary' : 'button-outline'}
       onClick={onClick}
     >
       {icon && <span className={`button-icon ${label ? "button-margin" : ""}`}>{icon}</span>}
